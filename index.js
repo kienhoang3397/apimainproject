@@ -5,35 +5,35 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./routers/auth");
-const userRoute = require("./routers/user")
-const productRoute = require("./routers/product")
+const userRoute = require("./routers/user");
+const productRoute = require("./routers/product");
 
 dotenv.config();
 const app = express();
-mongoose.connect(process.env.MONGODB_PRODUCT)
-    .then(() => {
-        
-  console.log("Connected to MongoDB");
-       
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error.message);
-});
+mongoose
+  .connect(process.env.MONGODB_PRODUCT)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error.message);
+  });
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-// //ROUTES
+// ROUTES
 app.use("/v1/auth", authRoute);
 app.use("/v1/user", userRoute);
-app.use("/product",productRoute)
-// app.use('/carts',require("./routers/cart"))
+app.use("/product", productRoute);
 
-
-// Call the function to insert data
-
+// Route for the root path
+app.get("/", (req, res) => {
+  res.send("Hello, this is your server!");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
