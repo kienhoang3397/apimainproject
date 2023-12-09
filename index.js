@@ -14,10 +14,15 @@ mongoose
   .connect(process.env.MONGODB_PRODUCT)
   .then(() => {
     console.log("Connected to MongoDB");
+    // If connected successfully, you can send a response here
+    app.get("/", (req, res) => {
+      res.send("Hello, this is your server and MongoDB is connected!");
+    });
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error.message);
   });
+
 
 app.use(cors());
 app.use(cookieParser());
