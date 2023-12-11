@@ -11,7 +11,9 @@ const productRoute = require("./routers/product");
 dotenv.config();
 const app = express();
 mongoose
-  .connect(process.env.MONGODB_PRODUCT)
+  .connect(
+    "mongodb+srv://kien2023:30122004@cluster0.nme04sd.mongodb.net/test?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("Connected to MongoDB");
 
